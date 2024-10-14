@@ -1,0 +1,9 @@
+name: 'MSGenAIReview'
+description: 'Generate AI review using OpenAI'
+inputs:
+GPT3_API_KEY:
+description: 'Open AI API key'
+required: true
+runs:
+using: 'node12'
+main: 'index.js'
