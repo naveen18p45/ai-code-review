@@ -14,7 +14,7 @@ openai.api_key = openai_api_key
 repo = github.get_repo(os.getenv('GITHUB_REPOSITORY'))
 
 pull_request_url = os.getenv('GITHUB_REF')
-
+print("pull_request_url=", pull_request_url);
 if pull_request_url and '/' in pull_request_url:
     try:
         pull_request_number = int(pull_request_url.split('/')[-1])
