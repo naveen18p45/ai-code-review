@@ -30,7 +30,7 @@ jobs:
                     REPO_OWNER: ${{ github.repository_owner }}
                     REPO_NAME: ${{ github.event.repository.name }}
                     PULL_NUMBER: ${{ github.event.number }}
-                    OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY_MANJUSHA}}
+                    OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY_LUIS}}
                 run: python .ai/msgenai/code_review.py
 
             -   name: Upload result as an artifact
