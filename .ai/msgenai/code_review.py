@@ -18,14 +18,13 @@ pull_request_url = os.getenv('GITHUB_REF')
 if pull_request_url and '/' in pull_request_url:
     try:
         pull_request_number = int(pull_request_url.split('/')[-1])
+        if pull_request_number:  # Use pull_request_number only if valid
+            pr = repo.get_pull(pull_request_number)
     except ValueError:
         # Handle invalid URL format or extract manually
         pass
-
-if pull_request_number:
-    pr = repo.get_pull(pull_request_number)
 else:
-    # Handle case where pull request number cannot be determined
+    # Handle case where pull request URL is not available
     pass
 
 # Get the differences in the PR
