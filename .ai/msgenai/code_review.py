@@ -7,7 +7,7 @@ github_token = os.getenv('GITHUB_TOKEN')
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 #Initialize the GitHub and OpenAI clients
-github = GitHub(github_token)
+github = Github(github_token)
 openai.api_key = openai_api_key
 
 #Get the repository and PR from the GitHub API
