@@ -45,9 +45,6 @@ for file in diff:
         # use the openai api to review the code
         review = openai.Chat.completions.create(
                     engine="text-davinci-003"
-                    messages=[
-                        {"role": "user", "content": content}
-                    ],
                     max_tokens=1500,
                     n=1,
                     stop=None,
