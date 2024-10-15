@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 from github import Github
 
 # Get the GitHub and OpenAI API Keys from environment
@@ -43,13 +43,15 @@ for file in diff:
         content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
 
         # use the openai api to review the code
-        review = openai.Chat.completions.create(
-                    engine="text-davinci-003"
-                    max_tokens=1500,
-                    n=1,
-                    stop=None,
-                    temperature=0.7
-                )
+        client = OpenAI()
+        review = client.chat.completions.create(
+            model="text-davinci-003",
+            messages=[{"role": "user", "content": content}],
+            max_tokens=1500,
+            n=1,
+            stop=None,
+            temperature=0.7
+        )
 
 
         #if there are any issues post a comment on the PR
