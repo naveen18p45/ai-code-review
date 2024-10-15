@@ -43,11 +43,17 @@ for file in diff:
         content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
 
         # use the openai api to review the code
-        review = openai.Completion.create(
-            engine="davinci-codex",
-            prompt=content,
-            max_tokens=60
-        )
+        review = openai.Chat.completions.create(
+                    engine="text-davinci-003"  # Replace with desired engine
+                    messages=[
+                        {"role": "user", "content": content}
+                    ],
+                    max_tokens=1500,  # Adjust if needed
+                    n=1,  # Number of responses
+                    stop=None,  # Optional stop sequences
+                    temperature=0.7  # Controls randomness
+                )
+
 
         #if there are any issues post a comment on the PR
         if review.choices[0].text.strip():
