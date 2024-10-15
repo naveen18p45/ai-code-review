@@ -12,7 +12,23 @@ openai.api_key = openai_api_key
 
 #Get the repository and PR from the GitHub API
 repo = github.get_repo(os.getenv('GITHUB_REPOSITORY'))
-pr = repo.get_pull(int(os.getenv('GITHUB_REF').split('/')[-1]))
+pull_request_url = os.getenv('GITHUB_REF')
+
+if pull_request_url and '/' in pull_request_url:
+    try:
+        pull_request_number = int(pull_request_url.split('/')[-1])
+    except ValueError:
+        # Handle invalid URL format or extract manually
+        pass
+else:
+    # Handle case where pull_request_url is not available
+    pass
+
+if pull_request_number:
+    pr = repo.get_pull(pull_request_number)
+else:
+    # Handle case where pull request number cannot be determined
+    pass
 
 # Get the differences in the PR
 diff = pr.get_files()
