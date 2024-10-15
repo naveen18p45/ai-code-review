@@ -1,6 +1,6 @@
 import os
 import openai
-import GitHub
+from github import Github
 
 # Get the GitHub and OpenAI API Keys from environment
 github_token = os.getenv('GITHUB_TOKEN')
