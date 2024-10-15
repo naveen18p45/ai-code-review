@@ -18,7 +18,8 @@ print("pull_request_url=", pull_request_url);
 if pull_request_url and '/' in pull_request_url:
     try:
         pull_request_number = int(pull_request_url.split('/')[-1])
-        if pull_request_number:  # Use pull_request_number only if valid
+        print("pull_request_number=", pull_request_number)
+        if pull_request_number:
             pr = repo.get_pull(pull_request_number)
             print("pr=", pr)
     except ValueError:
