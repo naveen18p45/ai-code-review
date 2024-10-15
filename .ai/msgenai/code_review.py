@@ -20,11 +20,14 @@ if pull_request_url and '/' in pull_request_url:
         pull_request_number = int(pull_request_url.split('/')[-1])
         if pull_request_number:  # Use pull_request_number only if valid
             pr = repo.get_pull(pull_request_number)
+            print("pr=", pr)
     except ValueError:
         # Handle invalid URL format or extract manually
+        print("inside first else")
         pass
 else:
     # Handle case where pull request URL is not available
+    print("inside second else")
     pass
 
 # Get the differences in the PR
