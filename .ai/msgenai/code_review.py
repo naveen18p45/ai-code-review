@@ -44,7 +44,7 @@ for file in diff:
 
         # use the openai api to review the code
         review = client.chat.completions.create(
-            model="text-davinci-003",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": content}],
             max_tokens=1500,
             n=1,
