@@ -15,11 +15,11 @@ repo = github.get_repo(os.getenv('GITHUB_REPOSITORY'))
 
 pull_request_url = os.getenv('GITHUB_REF')
 print("pull_request_url=", pull_request_url);
-pull_request_number = int(pull_request_url.split('/')[-1])
+pull_request_number = pull_request_url.split('/')[-2]
 print("pull_request_number=", pull_request_number)
 if pull_request_url:
     try:
-        pull_request_number = int(pull_request_url.split('/')[-1])
+        pull_request_number = int(pull_request_number)
         print("pull_request_number=", pull_request_number)
         if pull_request_number:
             pr = repo.get_pull(pull_request_number)
