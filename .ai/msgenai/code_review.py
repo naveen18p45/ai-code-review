@@ -8,7 +8,7 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 
 #Initialize the GitHub and OpenAI clients
 github = Github(github_token)
-openai.api_key = openai_api_key
+client = OpenAI(api_key=openai_api_key)
 
 #Get the repository and PR from the GitHub API
 repo = github.get_repo(os.getenv('GITHUB_REPOSITORY'))
@@ -43,7 +43,6 @@ for file in diff:
         content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
 
         # use the openai api to review the code
-        client = OpenAI()
         review = client.chat.completions.create(
             model="text-davinci-003",
             messages=[{"role": "user", "content": content}],
