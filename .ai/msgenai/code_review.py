@@ -32,7 +32,6 @@ for file in diff:
 
         #if there are any issues post a comment on the PR
         if review.choices[0].text.strip():
-            pr.create_issue_comment(f"## Code Review
-                                    {review.choices[0].text}")
+            pr.create_issue_comment(f"## Code Review {review.choices[0].text}")
 
 #TODO: Implement code review using OpenAI API
