@@ -33,30 +33,31 @@ else:
 # Get the differences in the PR
 diff = pr.get_files()
 
-async def get_streamed_completion(content):
+def get_streamed_completion(content):
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": content}],
         stream=True,
     )
-    
-    async for chunk in response:
-        if chunk.choices[0].delta.content is not None:
-            print("comment=", chunk.choices[0].delta.content)
-            await pr.create_issue_comment(chunk.choices[0].delta.content)
 
-async def main(diff):
-    tasks = []
+    for chunk in response:
+        print("Chunk received:", chunk)  # Debug line
+        delta_content = chunk.choices[0].delta.content if chunk.choices and chunk.choices[0].delta else None
+        if delta_content:
+            print("comment=", delta_content)
+            pr.create_issue_comment(delta_content)
+        else:
+            print("No content in chunk")
+def main(diff):
     for file in diff:
         if file.filename.endswith('.js'):
+            # Get the content of the file
             content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
             print("content=", content)
-            tasks.append(get_streamed_completion(content))
-    
-    await asyncio.gather(*tasks)
+            get_streamed_completion(content)
 
 # Run the main function
-asyncio.run(main(diff))
+main(diff)
 
 # Reviw each file in the PR
 # for file in diff:
