@@ -56,6 +56,6 @@ for file in diff:
          #if there are any issues post a comment on the PR
         for review in stream:
             if review.choices[0].delta.content is not None:
-                pr.create_issue_comment(review.choices[0].delta.content, end="")
+                pr.create_issue_comment(review.choices[0].delta.content)
 
 #TODO: Implement code review using OpenAI API
