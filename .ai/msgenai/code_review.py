@@ -1,3 +1,4 @@
+import asyncio
 import os
 from openai import OpenAI
 from github import Github
@@ -39,20 +40,20 @@ for file in diff:
         content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
         print("content=", content)
         # use the openai api to review the code
-        stream = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": content}],
-            stream=True,
-            max_tokens=1500,
-            n=1,
-            stop=None,
-            temperature=0.7
-        )
+        async def get_streamed_completion(content):
+            async with client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": content}],
+                stream=True,
+            ) as response:
+                async for chunk in response:
+                    #if there are any issues post a comment on the PR
+                    if chunk.choices[0].delta.content is not None:
+                        print("comment=", chunk.choices[0].delta.content)
+                        pr.create_issue_comment(chunk.choices[0].delta.content)
 
-         #if there are any issues post a comment on the PR
-        for review in stream:
-            if review.choices[0].delta.content is not None:
-                print("comment=", review.choices[0].delta.content)
-                pr.create_issue_comment(review.choices[0].delta.content)
+        # Run the asynchronous function
+        asyncio.run(get_streamed_completion(content))
+                
 
 #TODO: Implement code review using OpenAI API
