@@ -34,7 +34,7 @@ else:
 diff = pr.get_files()
 
 async def get_streamed_completion(content):
-    response = await client.chat.completions.create(
+    response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": content}],
         stream=True,
