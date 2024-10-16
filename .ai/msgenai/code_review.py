@@ -43,18 +43,19 @@ for file in diff:
         content = repo.get_contents(file.filename, ref=pr.head.sha).decoded_content.decode()
 
         # use the openai api to review the code
-        review = client.chat.completions.create(
+        stream = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[{"role": "user", "content": content}],
+            stream=True,
             max_tokens=1500,
             n=1,
             stop=None,
             temperature=0.7
         )
 
-
-        #if there are any issues post a comment on the PR
-        if review.choices[0].text.strip():
-            pr.create_issue_comment({review.choices[0].text})
+         #if there are any issues post a comment on the PR
+        for review in stream:
+            if review.choices[0].delta.content is not None:
+                pr.create_issue_comment(review.choices[0].delta.content, end="")
 
 #TODO: Implement code review using OpenAI API
