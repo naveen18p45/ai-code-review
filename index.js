@@ -1,5 +1,5 @@
-function greet(name) {
+function GREETMASTER(name) {
   var greeting = "Hello, " + name + "!";
   return greeting;
 }
-greet();
+GREETMASTER();
