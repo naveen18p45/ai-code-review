@@ -44,8 +44,7 @@ def get_streamed_completion(content):
     # Combine the default review instruction with the custom rules
     prompt = (
         f"Please review the following code for both common coding standards and the specific rules below:\n\n"
-        f"It should include the default review which violates the coding standards, and apply the custom rules:\n\n"
-        f"Then comment about the custom rule(s) which is(are) violated, and other default review comments on coding standards violations:\n\n"
+        f"Only comment on the rules that are violated. If a rule is not applicable do not mention it in the comment:\n\n"
         f"Custom Rules:\n{custom_rule_prompt}\n\n"
         f"Code:\n{content}"
     )
