@@ -33,10 +33,16 @@ else:
 # Get the differences in the PR
 diff = pr.get_files()
 
+def load_prompts(file_path):
+    with open(file_path, 'r') as file:
+        return [line.strip() for line in file.readlines() if line.strip()]
+
 def get_streamed_completion(content):
+    prompts = load_prompts('./ai/rule1.txt')  # Load prompts from the file
+    prompt = "\n".join(prompts) + f"\n\nCode:\n{content}"  # Combine all prompts
     response = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "user", "content": content}],
+        messages=[{"role": "user", "content": prompt}],
         stream=True,
     )
 
