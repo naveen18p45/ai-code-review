@@ -39,7 +39,14 @@ def load_prompts(file_path):
 
 def get_streamed_completion(content):
     prompts = load_prompts('.ai/msgenai/ai/rule1.txt')  # Load prompts from the file
-    prompt = "\n".join(prompts) + f"\n\nCode:\n{content}"  # Combine all prompts
+    custom_rule_prompt = "\n".join(prompts)
+
+    # Combine the default review instruction with the custom rules
+    prompt = (
+        f"Please review the following code for both common coding standards and the specific rules below:\n\n"
+        f"Custom Rules:\n{custom_rule_prompt}\n\n"
+        f"Code:\n{content}"
+    )
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
