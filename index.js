@@ -1,1 +1,5 @@
-console.log('hello AI world');
+function greet(name) {
+  var greeting = "Hello, " + name + "!";
+  return greeting;
+}
+greet();
