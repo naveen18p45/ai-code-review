@@ -45,9 +45,10 @@ def get_streamed_completion(content):
         delta_content = chunk.choices[0].delta.content if chunk.choices and chunk.choices[0].delta else None
         if delta_content:
             print("comment=", delta_content)
-            pr.create_issue_comment(delta_content)
+            comment += delta_content
         else:
             print("No content in chunk")
+    pr.create_issue_comment(comment)
 def main(diff):
     for file in diff:
         if file.filename.endswith('.js'):
