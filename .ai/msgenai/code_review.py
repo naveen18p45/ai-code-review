@@ -40,6 +40,7 @@ def get_streamed_completion(content):
         stream=True,
     )
 
+    comment = ""  # Initialize the comment variable
     for chunk in response:
         print("Chunk received:", chunk)  # Debug line
         delta_content = chunk.choices[0].delta.content if chunk.choices and chunk.choices[0].delta else None
@@ -48,7 +49,8 @@ def get_streamed_completion(content):
             comment += delta_content
         else:
             print("No content in chunk")
-    pr.create_issue_comment(comment)
+    if comment:
+        pr.create_issue_comment(comment)
 def main(diff):
     for file in diff:
         if file.filename.endswith('.js'):
