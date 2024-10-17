@@ -1,1 +1,4 @@
+1. Rule: All function names should be in camelCase. Please review the code for adherence to this rule.
+2. Rule: All variable names should be in snake_case. Please check the code for this convention.
+3. Rule: All classes should be named in PascalCase. Ensure class names conform to this rule.
 
