@@ -1,5 +1,7 @@
-function greet(name, verb) {
-  var greeting = "Hello, " + name + "!" + verb;
+
+function GREETMASTER(name) {
+  var greeting = "Hello, " + name + "!";
   return greeting;
 }
-greet('manjusha');
+GREETMASTER();
+

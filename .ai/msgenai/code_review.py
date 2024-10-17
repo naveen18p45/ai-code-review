@@ -38,7 +38,7 @@ def load_prompts(file_path):
         return [line.strip() for line in file.readlines() if line.strip()]
 
 def get_streamed_completion(content):
-    prompts = load_prompts('./ai/rule1.txt')  # Load prompts from the file
+    prompts = load_prompts('.ai/msgenai/ai/rule1.txt')  # Load prompts from the file
     prompt = "\n".join(prompts) + f"\n\nCode:\n{content}"  # Combine all prompts
     response = client.chat.completions.create(
         model="gpt-4o-mini",
