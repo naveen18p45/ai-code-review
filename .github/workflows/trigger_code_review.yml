@@ -1,4 +1,4 @@
-name: Manual Branch Specific Workflow
+name: Manual Branch Specific Code Review Workflow
 
 on:
   workflow_dispatch:
