@@ -19,7 +19,7 @@ jobs:
           ref: ${{ inputs.branch_name }}  # This checks out the branch passed as input
 
       - name: Display Branch Name
-        run: echo "Running the workflow for branch: ${{ inputs.branch_name }}"
+        run: echo "${{ inputs.branch_name }}"
 
       - name: Run build for specific branch
         run: |
