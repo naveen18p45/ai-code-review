@@ -1,4 +1,4 @@
-name: Manual Branch Specific Code Review Workflow
+name: Manual Branch Specific Workflow
 
 on:
   workflow_dispatch:
@@ -7,7 +7,6 @@ on:
         description: 'Branch to run the workflow on'
         required: true
         default: 'master'
-
 
 jobs:
   build:
@@ -21,3 +20,18 @@ jobs:
 
       - name: Display Branch Name
         run: echo "Running the workflow for branch: ${{ inputs.branch_name }}"
+
+      - name: Run build for specific branch
+        run: |
+          if [[ "${{ inputs.branch_name }}" == "main" ]]; then
+            echo "This is the main branch. Running main-specific tasks."
+            # Add main branch tasks here
+          elif [[ "${{ inputs.branch_name }}" == dev/* ]]; then
+            echo "This is a dev branch. Running dev-specific tasks."
+            # Add dev branch-specific tasks here
+          elif [[ "${{ inputs.branch_name }}" == release/* ]]; then
+            echo "This is a release branch. Running release-specific tasks."
+            # Add release branch-specific tasks here
+          else
+            echo "This is some other branch. Running default tasks."
+            # Add default tasks here
